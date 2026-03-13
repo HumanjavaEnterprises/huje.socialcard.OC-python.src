@@ -25,8 +25,21 @@ _PRESETS = {
 }
 
 
+_MAX_DIMENSION = 4096
+
+
 def custom(name: str, width: int, height: int) -> Preset:
-    """Create a custom preset with arbitrary dimensions."""
+    """Create a custom preset with arbitrary dimensions (max 4096x4096).
+
+    Raises ValueError if either dimension exceeds the maximum.
+    """
+    if width > _MAX_DIMENSION or height > _MAX_DIMENSION:
+        raise ValueError(
+            f"Image dimensions {width}x{height} exceed maximum of "
+            f"{_MAX_DIMENSION}x{_MAX_DIMENSION}"
+        )
+    if width <= 0 or height <= 0:
+        raise ValueError(f"Image dimensions must be positive, got {width}x{height}")
     return Preset(name, width, height)
 
 

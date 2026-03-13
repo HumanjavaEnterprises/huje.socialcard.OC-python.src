@@ -4,11 +4,19 @@
 from __future__ import annotations
 
 import io
+import os
 from PIL import Image
 
 from socialcard.presets import Preset, resolve as resolve_preset
 from socialcard.themes import Theme, DARK, resolve as resolve_theme
 from socialcard import elements
+
+_ALLOWED_RENDER_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.webp'}
+_ALLOWED_BYTE_FORMATS = {'PNG', 'JPEG', 'WEBP'}
+_MAX_TITLE_LEN = 200
+_MAX_SUBTITLE_LEN = 500
+_MAX_FOOTER_LEN = 200
+_MAX_BADGE_LEN = 100
 
 
 class SocialCard:
@@ -20,6 +28,16 @@ class SocialCard:
 
     def __init__(self, preset: str | Preset = "og", theme: str | Theme = "dark"):
         self._preset = resolve_preset(preset)
+        if self._preset.width > 4096 or self._preset.height > 4096:
+            raise ValueError(
+                f"Image dimensions {self._preset.width}x{self._preset.height} "
+                f"exceed maximum of 4096x4096"
+            )
+        if self._preset.width <= 0 or self._preset.height <= 0:
+            raise ValueError(
+                f"Image dimensions must be positive, "
+                f"got {self._preset.width}x{self._preset.height}"
+            )
         self._theme = resolve_theme(theme)
         self._badge_text: str | None = None
         self._title_text: str | None = None
@@ -32,14 +50,20 @@ class SocialCard:
         self._show_glow: bool = False
 
     def badge(self, text: str) -> SocialCard:
+        if len(text) > _MAX_BADGE_LEN:
+            raise ValueError(f"Badge text exceeds {_MAX_BADGE_LEN} characters ({len(text)} given)")
         self._badge_text = text
         return self
 
     def title(self, text: str) -> SocialCard:
+        if len(text) > _MAX_TITLE_LEN:
+            raise ValueError(f"Title text exceeds {_MAX_TITLE_LEN} characters ({len(text)} given)")
         self._title_text = text
         return self
 
     def subtitle(self, text: str) -> SocialCard:
+        if len(text) > _MAX_SUBTITLE_LEN:
+            raise ValueError(f"Subtitle text exceeds {_MAX_SUBTITLE_LEN} characters ({len(text)} given)")
         self._subtitle_text = text
         return self
 
@@ -56,6 +80,8 @@ class SocialCard:
         return self
 
     def footer(self, text: str) -> SocialCard:
+        if len(text) > _MAX_FOOTER_LEN:
+            raise ValueError(f"Footer text exceeds {_MAX_FOOTER_LEN} characters ({len(text)} given)")
         self._footer_text = text
         return self
 
@@ -118,14 +144,35 @@ class SocialCard:
         return img
 
     def render(self, path: str) -> Image.Image:
-        """Render the card and save to a file. Returns the Image."""
+        """Render the card and save to a file. Returns the Image.
+
+        Raises ValueError for path traversal attempts or disallowed extensions.
+        """
+        resolved = os.path.realpath(path)
+        if '..' in os.path.normpath(resolved).split(os.sep):
+            raise ValueError(f"Path traversal detected in output path: {path!r}")
+        ext = os.path.splitext(resolved)[1].lower()
+        if ext not in _ALLOWED_RENDER_EXTENSIONS:
+            raise ValueError(
+                f"Disallowed file extension {ext!r}. "
+                f"Allowed: {sorted(_ALLOWED_RENDER_EXTENSIONS)}"
+            )
         img = self._build()
-        img.save(path)
+        img.save(resolved)
         return img
 
     def render_bytes(self, fmt: str = "PNG") -> bytes:
-        """Render the card and return as bytes."""
+        """Render the card and return as bytes.
+
+        Raises ValueError for unknown image formats.
+        """
+        fmt_upper = fmt.upper()
+        if fmt_upper not in _ALLOWED_BYTE_FORMATS:
+            raise ValueError(
+                f"Unknown image format {fmt!r}. "
+                f"Allowed: {sorted(_ALLOWED_BYTE_FORMATS)}"
+            )
         img = self._build()
         buf = io.BytesIO()
-        img.save(buf, format=fmt)
+        img.save(buf, format=fmt_upper)
         return buf.getvalue()

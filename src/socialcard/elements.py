@@ -1,12 +1,24 @@
 # socialcard — drawing elements
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
+import re
+
 from PIL import Image, ImageDraw, ImageFilter
 from socialcard.fonts import load_font
 
+_HEX_RE = re.compile(r'^#?[0-9a-fA-F]{6}$')
+
 
 def _hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
-    """Convert hex color string to RGB tuple."""
+    """Convert hex color string to RGB tuple.
+
+    Accepts '#RRGGBB' or 'RRGGBB'. Raises ValueError for invalid input.
+    """
+    if not isinstance(hex_color, str) or not _HEX_RE.match(hex_color):
+        raise ValueError(
+            f"Invalid hex color: {hex_color!r}. "
+            "Expected format '#RRGGBB' or 'RRGGBB' (6 hex digits)."
+        )
     h = hex_color.lstrip("#")
     return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
 
