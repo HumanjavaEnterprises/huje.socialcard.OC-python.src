@@ -112,6 +112,72 @@ def draw_mini_cards(
     return y + card_height + 20
 
 
+def draw_skill_cards(
+    img: Image.Image,
+    skills: list[dict],
+    card_bg: str,
+    card_border: str,
+    text_color: str,
+    text_muted: str,
+    accent: str,
+    y: int = 320,
+) -> int:
+    """Draw structured skill cards with name (accent-highlighted), subtitle, and code.
+
+    Each skill dict should have: name (str), label (str), code (str).
+    The name can contain a pipe to split prefix|suffix for accent coloring,
+    e.g. "Nostr|Key" renders "Nostr" in text_color and "Key" in accent.
+    """
+    draw = ImageDraw.Draw(img)
+    name_font = load_font(24)
+    label_font = load_font(18)
+    code_font = load_font(16, mono=True)
+
+    count = len(skills)
+    if count == 0:
+        return y
+
+    gap = 24
+    pad_x, pad_y = 20, 16
+    card_h = 110
+    card_w = (img.width - 120 - gap * (count - 1)) // count
+    start_x = (img.width - (card_w * count + gap * (count - 1))) / 2
+
+    bg = _hex_to_rgb(card_bg)
+    border = _hex_to_rgb(card_border)
+    tc = _hex_to_rgb(text_color)
+    ac = _hex_to_rgb(accent)
+
+    for i, skill in enumerate(skills):
+        cx = start_x + i * (card_w + gap)
+        draw.rounded_rectangle(
+            [cx, y, cx + card_w, y + card_h],
+            radius=12, fill=bg, outline=border, width=1,
+        )
+
+        # Name with optional accent split
+        name = skill.get("name", "")
+        nx = cx + pad_x
+        ny = y + pad_y
+        if "|" in name:
+            prefix, suffix = name.split("|", 1)
+            draw.text((nx, ny), prefix, fill=tc, font=name_font)
+            nx += name_font.getlength(prefix)
+            draw.text((nx, ny), suffix, fill=ac, font=name_font)
+        else:
+            draw.text((nx, ny), name, fill=tc, font=name_font)
+
+        # Label
+        label = skill.get("label", "")
+        draw.text((cx + pad_x, y + pad_y + 30), label, fill=_hex_to_rgb(text_muted), font=label_font)
+
+        # Code
+        code = skill.get("code", "")
+        draw.text((cx + pad_x, y + pad_y + 60), code, fill=ac, font=code_font)
+
+    return y + card_h + 20
+
+
 def draw_grid(img: Image.Image, color: str, spacing: int = 40, opacity: int = 20) -> None:
     """Draw a subtle grid overlay."""
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))

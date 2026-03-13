@@ -25,6 +25,7 @@ class SocialCard:
         self._title_text: str | None = None
         self._subtitle_text: str | None = None
         self._cards_list: list[str] | None = None
+        self._skill_cards_list: list[dict] | None = None
         self._footer_text: str | None = None
         self._accent_color: str | None = None
         self._show_grid: bool = False
@@ -44,6 +45,14 @@ class SocialCard:
 
     def cards(self, labels: list[str]) -> SocialCard:
         self._cards_list = labels
+        return self
+
+    def skill_cards(self, skills: list[dict]) -> SocialCard:
+        """Add structured skill cards. Each dict: name, label, code.
+
+        Use pipe in name for accent split: "Nostr|Key" → "Nostr" + "Key" (accented).
+        """
+        self._skill_cards_list = skills
         return self
 
     def footer(self, text: str) -> SocialCard:
@@ -92,6 +101,14 @@ class SocialCard:
             y = elements.draw_mini_cards(
                 img, self._cards_list,
                 self._theme.card_bg, self._theme.card_border, self._theme.text,
+                y=y,
+            )
+
+        if self._skill_cards_list:
+            y = elements.draw_skill_cards(
+                img, self._skill_cards_list,
+                self._theme.card_bg, self._theme.card_border, self._theme.text,
+                self._theme.text_muted, self._accent(),
                 y=y,
             )
 
