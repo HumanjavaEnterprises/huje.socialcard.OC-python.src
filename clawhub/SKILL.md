@@ -1,7 +1,7 @@
 ---
 name: socialcard
 description: Generate social preview images (OG, Twitter, GitHub) with a fluent builder API. Single dependency — Pillow.
-version: 0.1.2
+version: 0.1.3
 metadata:
   openclaw:
     requires:

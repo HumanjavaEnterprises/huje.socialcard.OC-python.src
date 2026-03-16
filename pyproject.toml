@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "socialcard"
-version = "0.1.2"
+version = "0.1.3"
 description = "Generate beautiful social card images (OG, Twitter, GitHub) with a builder API"
 readme = "README.md"
 license = "MIT"
