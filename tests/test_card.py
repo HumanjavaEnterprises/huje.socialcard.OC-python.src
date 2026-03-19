@@ -2,8 +2,8 @@
 import os
 import tempfile
 from PIL import Image
-from socialcard import SocialCard
-from socialcard.presets import OG, TWITTER, GITHUB, SQUARE
+from social_card import SocialCard
+from social_card.presets import OG, TWITTER, GITHUB, SQUARE
 
 
 def test_render_returns_image():

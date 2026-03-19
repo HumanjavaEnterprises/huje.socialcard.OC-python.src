@@ -1,7 +1,7 @@
 """Branded card — full builder API example."""
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
-from socialcard import SocialCard
+from social_card import SocialCard
 
 (SocialCard("og", theme="midnight")
     .badge("Open Source")

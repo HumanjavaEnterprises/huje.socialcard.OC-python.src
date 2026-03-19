@@ -1,10 +1,10 @@
-# socialcard — drawing elements
+# social-card — drawing elements
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
 import re
 
 from PIL import Image, ImageDraw, ImageFilter
-from socialcard.fonts import load_font
+from social_card.fonts import load_font
 
 _HEX_RE = re.compile(r'^#?[0-9a-fA-F]{6}$')
 

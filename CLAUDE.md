@@ -1,4 +1,4 @@
-# socialcard — CLAUDE.md
+# social-card — CLAUDE.md
 
 ## What is this?
 An OpenClaw skill / Python package for generating social card images (OG, Twitter, GitHub).
@@ -10,7 +10,7 @@ Builder pattern API. Single dependency: Pillow.
 - `twine upload dist/*` — publish to PyPI
 
 ## Structure
-- `src/socialcard/` — package source
+- `src/social_card/` — package source
 - `clawhub/` — ClawHub skill metadata
 - `tests/` — pytest tests
 - `examples/` — usage examples

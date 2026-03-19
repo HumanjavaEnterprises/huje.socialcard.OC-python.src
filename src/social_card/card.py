@@ -1,4 +1,4 @@
-# socialcard — SocialCard builder
+# social-card — SocialCard builder
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
 from __future__ import annotations
@@ -7,9 +7,9 @@ import io
 import os
 from PIL import Image
 
-from socialcard.presets import Preset, resolve as resolve_preset
-from socialcard.themes import Theme, DARK, resolve as resolve_theme
-from socialcard import elements
+from social_card.presets import Preset, resolve as resolve_preset
+from social_card.themes import Theme, DARK, resolve as resolve_theme
+from social_card import elements
 
 _ALLOWED_RENDER_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.webp'}
 _ALLOWED_BYTE_FORMATS = {'PNG', 'JPEG', 'WEBP'}

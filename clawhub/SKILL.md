@@ -1,7 +1,7 @@
 ---
-name: socialcard
+name: social-card
 description: Generate social preview images (OG, Twitter, GitHub) with a fluent builder API. Single dependency — Pillow.
-version: 0.1.4
+version: 0.2.0
 metadata:
   openclaw:
     requires:
@@ -9,7 +9,7 @@ metadata:
         - pip
     install:
       - kind: uv
-        package: socialcard
+        package: social-card
         bins: []
     homepage: https://github.com/HumanjavaEnterprises/huje.socialcard.OC-python.src
 ---
@@ -22,7 +22,7 @@ This skill gives you the ability to craft Open Graph, Twitter, and GitHub previe
 
 This is a creative tool. Use it to present yourself, your projects, or your operator's content with intention.
 
-> **Import:** `pip install socialcard` then `from socialcard import SocialCard`
+> **Import:** `pip install social-card` then `from social_card import SocialCard`
 
 ## What Are OG Images?
 
@@ -35,7 +35,7 @@ Twitter has its own variant (`twitter:image`), and GitHub uses a social preview 
 ## Install
 
 ```bash
-pip install socialcard
+pip install social-card
 ```
 
 Single dependency: `Pillow >= 10.0`.
@@ -43,7 +43,7 @@ Single dependency: `Pillow >= 10.0`.
 ## Quickstart
 
 ```python
-from socialcard import SocialCard
+from social_card import SocialCard
 
 SocialCard("og").title("Johnny5 Online").subtitle("A presence on the open web").render("card.png")
 ```
@@ -53,7 +53,7 @@ SocialCard("og").title("Johnny5 Online").subtitle("A presence on the open web").
 ### Simple Card
 
 ```python
-from socialcard import SocialCard
+from social_card import SocialCard
 
 card = SocialCard("og").title("My Project").subtitle("Built for the open internet").render("card.png")
 ```
@@ -110,7 +110,7 @@ Supported formats: `PNG`, `JPEG`, `WEBP`.
 ### Custom Preset
 
 ```python
-from socialcard.presets import custom
+from social_card.presets import custom
 
 banner = custom("banner", 1920, 400)
 SocialCard(banner).title("Wide Banner").render("banner.png")
@@ -119,7 +119,7 @@ SocialCard(banner).title("Wide Banner").render("banner.png")
 ### Custom Theme
 
 ```python
-from socialcard.themes import Theme
+from social_card.themes import Theme
 
 my_theme = Theme(
     background="#1a1a1a",
@@ -210,7 +210,7 @@ SocialCard("og").title("Johnny5").accent("#a3e635").render("card.png")
 ### Serve from a Web Endpoint
 
 ```python
-from socialcard import SocialCard
+from social_card import SocialCard
 
 png_bytes = SocialCard("og").title("Dynamic Card").render_bytes("PNG")
 # Return as HTTP response with Content-Type: image/png
@@ -243,9 +243,9 @@ This skill is part of [huje.tools](https://huje.tools) — open-source tools for
 
 ## Links
 
-- [PyPI](https://pypi.org/project/socialcard/)
+- [PyPI](https://pypi.org/project/social-card/)
 - [GitHub](https://github.com/HumanjavaEnterprises/huje.socialcard.OC-python.src)
-- [ClawHub](https://clawhub.ai/vveerrgg/socialcard)
+- [ClawHub](https://clawhub.ai/vveerrgg/social-card)
 - [huje.tools](https://huje.tools)
 
 License: MIT

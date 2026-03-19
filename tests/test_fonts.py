@@ -1,6 +1,6 @@
-"""Tests for socialcard font loading."""
+"""Tests for social-card font loading."""
 from PIL import ImageFont
-from socialcard.fonts import load_font
+from social_card.fonts import load_font
 
 
 def test_load_font_returns_font():

@@ -1,4 +1,4 @@
-# socialcard — color themes
+# social-card — color themes
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
 from dataclasses import dataclass

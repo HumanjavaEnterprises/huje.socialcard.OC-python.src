@@ -1,4 +1,4 @@
-# socialcard
+# social-card
 
 Generate beautiful social card images with a builder API. One dependency: Pillow.
 
@@ -7,13 +7,13 @@ Built by [humanjava.com](https://humanjava.com) — find this and other tools fo
 ## Install
 
 ```bash
-pip install socialcard
+pip install social-card
 ```
 
 ## Quick Start
 
 ```python
-from socialcard import SocialCard
+from social_card import SocialCard
 
 SocialCard("og").title("My Project").subtitle("A cool tool").render("card.png")
 ```
@@ -67,7 +67,7 @@ card.render_bytes()                # Returns PNG bytes
 ## ClawHub
 
 ```bash
-clawhub install socialcard
+clawhub install social-card
 ```
 
 ## License

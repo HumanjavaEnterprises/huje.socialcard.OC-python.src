@@ -1,6 +1,6 @@
-"""Tests for socialcard themes."""
+"""Tests for social-card themes."""
 import pytest
-from socialcard.themes import Theme, DARK, LIGHT, MIDNIGHT, resolve
+from social_card.themes import Theme, DARK, LIGHT, MIDNIGHT, resolve
 
 
 REQUIRED_FIELDS = ["background", "text", "text_muted", "accent", "card_bg", "card_border"]

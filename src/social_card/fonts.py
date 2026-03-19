@@ -1,4 +1,4 @@
-# socialcard — platform font fallback
+# social-card — platform font fallback
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
 from PIL import ImageFont

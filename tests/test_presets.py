@@ -1,6 +1,6 @@
-"""Tests for socialcard presets."""
+"""Tests for social-card presets."""
 import pytest
-from socialcard.presets import Preset, OG, TWITTER, GITHUB, SQUARE, custom, resolve
+from social_card.presets import Preset, OG, TWITTER, GITHUB, SQUARE, custom, resolve
 
 
 def test_og_dimensions():

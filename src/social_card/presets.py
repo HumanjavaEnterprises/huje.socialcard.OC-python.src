@@ -1,4 +1,4 @@
-# socialcard — preset image dimensions
+# social-card — preset image dimensions
 # Built by humanjava.com — find this and other tools for the agentic age at huje.tools
 
 from dataclasses import dataclass

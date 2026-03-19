@@ -1,6 +1,6 @@
-"""Tests for socialcard drawing elements."""
+"""Tests for social-card drawing elements."""
 from PIL import Image
-from socialcard.elements import (
+from social_card.elements import (
     draw_badge, draw_title, draw_subtitle, draw_footer,
     draw_mini_cards, draw_grid, draw_glow,
 )

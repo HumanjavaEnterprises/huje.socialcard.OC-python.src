@@ -3,8 +3,8 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "socialcard"
-version = "0.1.4"
+name = "social-card"
+version = "0.2.0"
 description = "Generate beautiful social card images (OG, Twitter, GitHub) with a builder API"
 readme = "README.md"
 license = "MIT"
