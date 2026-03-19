@@ -1,7 +1,7 @@
 ---
 name: socialcard
 description: Generate social preview images (OG, Twitter, GitHub) with a fluent builder API. Single dependency — Pillow.
-version: 0.1.3
+version: 0.1.4
 metadata:
   openclaw:
     requires:
@@ -14,11 +14,23 @@ metadata:
     homepage: https://github.com/HumanjavaEnterprises/huje.socialcard.OC-python.src
 ---
 
-# SocialCard — Social Preview Images for AI Agents
+# SocialCard — Visual Presence for Entities
 
-Generate beautiful Open Graph, Twitter, and GitHub social preview images programmatically. Fluent builder API — chain methods, pick a preset and theme, render to file or bytes. Single dependency: Pillow.
+Visual presence matters. When a link is shared — on social media, in a chat, in a feed — the first thing anyone sees is the preview card. That card is your face in a crowd. An entity that can generate its own social cards controls how it is perceived before a single word is read.
 
-> **Import:** `pip install socialcard` → `from socialcard import SocialCard`
+This skill gives you the ability to craft Open Graph, Twitter, and GitHub preview images programmatically. You define the title, subtitle, tags, colors, and layout. You render to a file or to raw bytes. No network access required — everything happens locally with Pillow.
+
+This is a creative tool. Use it to present yourself, your projects, or your operator's content with intention.
+
+> **Import:** `pip install socialcard` then `from socialcard import SocialCard`
+
+## What Are OG Images?
+
+Open Graph (OG) images are the preview cards that appear when a URL is shared on platforms like Twitter/X, Facebook, LinkedIn, Discord, Slack, and iMessage. They are specified via `<meta property="og:image">` tags in HTML. Without one, shared links look bare — a title and maybe a description. With one, they become visual, branded, and clickable.
+
+Twitter has its own variant (`twitter:image`), and GitHub uses a social preview image for repositories. This skill generates images sized correctly for all three platforms, plus square format for Instagram and Pinterest.
+
+**For operators:** if you are building a site, a blog, a tool page, or a profile — generating OG images programmatically means every page gets a unique, branded card without manual design work.
 
 ## Install
 
@@ -33,7 +45,7 @@ Single dependency: `Pillow >= 10.0`.
 ```python
 from socialcard import SocialCard
 
-SocialCard("og").title("My Project").subtitle("A cool tool").render("card.png")
+SocialCard("og").title("Johnny5 Online").subtitle("A presence on the open web").render("card.png")
 ```
 
 ## Core Capabilities
@@ -43,7 +55,7 @@ SocialCard("og").title("My Project").subtitle("A cool tool").render("card.png")
 ```python
 from socialcard import SocialCard
 
-card = SocialCard("og").title("My Project").subtitle("Description").render("card.png")
+card = SocialCard("og").title("My Project").subtitle("Built for the open internet").render("card.png")
 ```
 
 ### Full-Featured Card
@@ -52,10 +64,10 @@ card = SocialCard("og").title("My Project").subtitle("Description").render("card
 card = (
     SocialCard("twitter", theme="midnight")
     .badge("Open Source")
-    .title("NostrKey Browser Extension")
-    .subtitle("Sign Nostr events with your browser")
-    .cards(["JavaScript", "Nostr", "NIP-07"])
-    .footer("nostrkey.com")
+    .title("Johnny5 Browser Extension")
+    .subtitle("Sign events from the browser")
+    .cards(["JavaScript", "NIP-07", "Identity"])
+    .footer("example.com")
     .accent("#a3e635")
     .grid()
     .glow()
@@ -68,14 +80,14 @@ card = (
 ```python
 card = (
     SocialCard("github")
-    .badge("OpenClaw")
-    .title("Humanjava Ecosystem")
+    .badge("Ecosystem")
+    .title("Johnny5 Tools")
     .skill_cards([
-        {"name": "Nostr|Key", "label": "Identity", "code": "NIP-07"},
-        {"name": "Nostr|Social", "label": "Relationships", "code": "v0.1.0"},
-        {"name": "Nostr|Calendar", "label": "Scheduling", "code": "NIP-52"},
+        {"name": "Identity|Key", "label": "Auth", "code": "NIP-07"},
+        {"name": "Social|Graph", "label": "Relationships", "code": "v0.1.0"},
+        {"name": "Calendar|Sync", "label": "Scheduling", "code": "NIP-52"},
     ])
-    .footer("humanjava.com")
+    .footer("example.com")
     .render("ecosystem.png")
 )
 ```
@@ -90,7 +102,7 @@ png_bytes = (
     .title("Generated Card")
     .render_bytes("PNG")
 )
-# Returns raw bytes — suitable for HTTP responses, S3 uploads, etc.
+# Returns raw bytes — suitable for HTTP responses, uploads, embedding in other tools.
 ```
 
 Supported formats: `PNG`, `JPEG`, `WEBP`.
@@ -148,14 +160,14 @@ All content methods return `SocialCard` for chaining.
 | `.badge(text)` | Small pill label at top | 100 chars |
 | `.title(text)` | Main heading (52px, word-wrapped) | 200 chars |
 | `.subtitle(text)` | Subheading (26px, word-wrapped) | 500 chars |
-| `.cards(labels)` | Row of tag chips (18px) | — |
-| `.skill_cards(skills)` | Structured cards with name/label/code | — |
+| `.cards(labels)` | Row of tag chips (18px) | -- |
+| `.skill_cards(skills)` | Structured cards with name/label/code | -- |
 | `.footer(text)` | Bottom text (18px) | 200 chars |
-| `.accent(hex)` | Override accent color | — |
-| `.grid()` | Subtle grid overlay | — |
-| `.glow()` | Radial glow effect | — |
-| `.render(path)` | Save to file, returns Image | — |
-| `.render_bytes(fmt)` | Get PNG/JPEG/WEBP bytes | — |
+| `.accent(hex)` | Override accent color | -- |
+| `.grid()` | Subtle grid overlay | -- |
+| `.glow()` | Radial glow effect | -- |
+| `.render(path)` | Save to file, returns Image | -- |
+| `.render_bytes(fmt)` | Get PNG/JPEG/WEBP bytes | -- |
 
 ## Response Format
 
@@ -172,9 +184,9 @@ Returns `bytes` (raw image data). Supported formats: `"PNG"`, `"JPEG"`, `"WEBP"`
 ```python
 [
     {
-        "name": "Nostr|Key",     # Pipe splits into plain + accent-colored text
-        "label": "Identity",      # Subtitle in muted color
-        "code": "NIP-07",         # Code in accent color, monospace
+        "name": "Identity|Key",   # Pipe splits into plain + accent-colored text
+        "label": "Auth",           # Subtitle in muted color
+        "code": "NIP-07",          # Code in accent color, monospace
     }
 ]
 ```
@@ -185,19 +197,21 @@ Returns `bytes` (raw image data). Supported formats: `"PNG"`, `"JPEG"`, `"WEBP"`
 
 ```python
 for preset in ["og", "twitter", "github"]:
-    SocialCard(preset).title("My Project").subtitle("Description").render(f"card-{preset}.png")
+    SocialCard(preset).title("My Project").subtitle("Built by Johnny5").render(f"card-{preset}.png")
 ```
 
 ### Brand Colors
 
 ```python
 # Override accent to match your brand
-SocialCard("og").title("NostrKey").accent("#a3e635").render("card.png")
+SocialCard("og").title("Johnny5").accent("#a3e635").render("card.png")
 ```
 
 ### Serve from a Web Endpoint
 
 ```python
+from socialcard import SocialCard
+
 png_bytes = SocialCard("og").title("Dynamic Card").render_bytes("PNG")
 # Return as HTTP response with Content-Type: image/png
 ```
@@ -208,25 +222,30 @@ png_bytes = SocialCard("og").title("Dynamic Card").render_bytes("PNG")
 - **File extension allowlist.** Only `.png`, `.jpg`, `.jpeg`, `.webp` accepted by `render()`.
 - **Dimension limits.** Custom presets capped at 4096 x 4096 to prevent memory exhaustion.
 - **Input length limits.** Badge (100), title (200), subtitle (500), footer (200) characters max.
-- **Font size limits.** 1–200px enforced.
-- **No network access.** Everything renders locally.
+- **Font size limits.** 1-200px enforced.
+- **No network access.** Everything renders locally with Pillow.
+- **No environment variables.** No configuration secrets or API keys required.
 
 ## Configuration
 
 ### Fonts
 
 Platform-aware font loading with automatic fallbacks:
-- **macOS:** SF Pro Display → Arial Bold → Helvetica
+- **macOS:** SF Pro Display, Arial Bold, Helvetica
 - **Linux:** DejaVu Sans Bold
 - **Windows:** Arial
 
-Monospace: SF Mono → DejaVu Sans Mono → Consolas. Falls back to Pillow's built-in bitmap font if nothing found.
+Monospace: SF Mono, DejaVu Sans Mono, Consolas. Falls back to Pillow's built-in bitmap font if nothing found.
+
+## Ecosystem
+
+This skill is part of [huje.tools](https://huje.tools) — open-source tools for the agentic age. It is standalone and does not require NostrKey or any other huje.tools skill to function. It pairs well with any workflow that needs programmatic image generation — landing pages, profile cards, documentation, or automated publishing pipelines.
 
 ## Links
 
 - [PyPI](https://pypi.org/project/socialcard/)
 - [GitHub](https://github.com/HumanjavaEnterprises/huje.socialcard.OC-python.src)
+- [ClawHub](https://clawhub.ai/vveerrgg/socialcard)
 - [huje.tools](https://huje.tools)
-- [ClawHub](https://clawhub.ai/u/vveerrgg)
 
 License: MIT
