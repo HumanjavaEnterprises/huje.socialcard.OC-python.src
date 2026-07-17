@@ -47,6 +47,7 @@ SocialCard("og").title("My Project").subtitle("A cool tool").render("card.png")
 - `dark` — Navy background, blue accent
 - `light` — White background, blue accent
 - `midnight` — Near-black, purple accent
+- `business` — Deep charcoal-green, emerald accent (Business Public / bpub cards)
 
 ## API
 

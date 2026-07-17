@@ -42,10 +42,22 @@ MIDNIGHT = Theme(
     card_border="#1f2937",
 )
 
+# Emerald accent on a deep charcoal-green ground — the "Business Public" / bpub
+# brand palette, for business cards and directory listings.
+BUSINESS = Theme(
+    background="#0c1512",
+    text="#f0fdf4",
+    text_muted="#7d9a8b",
+    accent="#10b981",
+    card_bg="#132119",
+    card_border="#20342a",
+)
+
 _THEMES = {
     "dark": DARK,
     "light": LIGHT,
     "midnight": MIDNIGHT,
+    "business": BUSINESS,
 }
 
 

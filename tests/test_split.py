@@ -47,6 +47,14 @@ def test_mini_cards_wrap_within_region():
     assert y_after > 100 + 46
 
 
+def test_business_theme_resolves_and_renders():
+    from social_card import themes
+    t = themes.resolve("business")
+    assert t.accent == "#10b981"
+    png = SocialCard("og", theme="business").title("Acme Co.").subtitle("Widgets").render_bytes()
+    assert png[:8] == b"\x89PNG\r\n\x1a\n"
+
+
 def test_draw_portrait_is_circular_masked():
     img = Image.new("RGB", (1200, 630), (0, 0, 0))
     src = Image.new("RGB", (300, 300), (255, 255, 255))
