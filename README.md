@@ -60,9 +60,41 @@ card.footer("text")                # Bottom text
 card.accent("#hex")                # Override accent color
 card.grid()                        # Subtle grid overlay
 card.glow()                        # Radial glow effect
+card.split()                       # Two-column layout (content left, visual right)
+card.portrait(path_or_image)       # Circular portrait in the right column (implies split)
+card.headline("text")              # Large wrapped headline in the right column (implies split)
 card.render("path.png")            # Save to file, returns Image
 card.render_bytes()                # Returns PNG bytes
 ```
+
+## Split layout (business card)
+
+Set a `portrait` or `headline` to switch to a two-column card: the badge / title /
+subtitle / cards stack in the left column, and the visual sits on the right.
+
+```python
+# Business card — circular avatar on the right
+(SocialCard("og", theme="dark")
+    .badge("@vveerrgg").title("Vveerrgg")
+    .subtitle("Developer · Creator · Tech Enthusiast")
+    .cards(["Nostr", "Bitcoin", "Lightning", "Web"])
+    .footer("vveerrgg.online")
+    .accent("#0984e3")
+    .portrait("avatar.png")          # local path or a PIL Image
+    .grid().glow()
+    .render("card.png"))
+
+# Headline on the right instead of an image
+(SocialCard("og", theme="midnight")
+    .title("Vergel Evans")
+    .subtitle("UX Architect · Service Design Strategist")
+    .headline("I design the systems underneath the screens.")
+    .accent("#9B87FF")
+    .render("card.png"))
+```
+
+The left column is vertically centered, chips wrap to fit the narrower column, and a
+faint divider separates the two sides.
 
 ## ClawHub
 
